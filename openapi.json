@@ -1,0 +1,403 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger Hackathon Orenburg",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/v1/users/login": {
+      "post": {
+        "summary": "Авторизация пользователя",
+        "tags": [
+          "api/v1/users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/register": {
+      "post": {
+        "summary": "Регистрация пользователя",
+        "tags": [
+          "api/v1/users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/shortprofile": {
+      "post": {
+        "summary": "Получение минимальных данных пользователя",
+        "description": "Для определения роли пользователя",
+        "tags": [
+          "api/v1/users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessToken"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserShortProfile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/profile": {
+      "post": {
+        "summary": "Получение данных пользователя",
+        "description": "Для вывода на странице профиля пользователя",
+        "tags": [
+          "api/v1/users"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccessToken"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Unauthorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Success": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Успешно"
+          }
+        }
+      },
+      "BadRequest": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "integer",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "Отсутствующие параметры!"
+          }
+        }
+      },
+      "Unauthorized": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "integer",
+            "example": 401
+          },
+          "message": {
+            "type": "string",
+            "example": "Аутентификация не пройдена!"
+          }
+        }
+      },
+      "Forbidden": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "integer",
+            "example": 403
+          },
+          "message": {
+            "type": "string",
+            "example": "Авторизация не пройдена!"
+          }
+        }
+      },
+      "NotFound": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "integer",
+            "example": 404
+          },
+          "message": {
+            "type": "string",
+            "example": "Не найдено"
+          }
+        }
+      },
+      "LoginRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@test.global"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "example": "qwerty1234"
+          }
+        }
+      },
+      "RegistrationRequest": {
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "surname",
+          "firstName"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@test.global"
+          },
+          "password": {
+            "type": "string",
+            "minLength": 8,
+            "example": "qwerty1234"
+          },
+          "surname": {
+            "type": "string",
+            "example": "Иванов"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Иван"
+          },
+          "patronymic": {
+            "type": "string",
+            "example": "Иванович"
+          }
+        }
+      },
+      "AccessToken": {
+        "type": "object",
+        "required": [
+          "accessToken"
+        ],
+        "properties": {
+          "accessToken": {
+            "type": "string"
+          }
+        }
+      },
+      "UserShortProfile": {
+        "type": "object",
+        "required": [
+          "surname",
+          "firstName",
+          "role"
+        ],
+        "properties": {
+          "surname": {
+            "type": "string",
+            "example": "Иванов"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Иван"
+          },
+          "patronymic": {
+            "type": "string",
+            "example": "Иванович"
+          },
+          "role": {
+            "type": "string",
+            "example": "SUPERUSER",
+            "enum": [
+              "SUPERUSER",
+              "ADMINISTRATION",
+              "USER"
+            ]
+          }
+        }
+      },
+      "UserProfile": {
+        "type": "object",
+        "required": [
+          "email",
+          "surname",
+          "firstName",
+          "role"
+        ],
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "test@test.global"
+          },
+          "surname": {
+            "type": "string",
+            "example": "Иванов"
+          },
+          "firstName": {
+            "type": "string",
+            "example": "Иван"
+          },
+          "patronymic": {
+            "type": "string",
+            "example": "Иванович"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "example": "2000-01-11T21:00:00Z"
+          },
+          "gender": {
+            "type": "string",
+            "example": "MALE",
+            "enum": [
+              "MALE",
+              "FEMALE"
+            ]
+          },
+          "country": {
+            "type": "string",
+            "example": "РОССИЙСКАЯ ФЕДЕРАЦИЯ"
+          },
+          "city": {
+            "type": "string",
+            "example": "ОРЕНБУРГ"
+          },
+          "mobilePhone": {
+            "type": "string",
+            "example": "88005553535"
+          },
+          "socialMediaLinkList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SocialMediaLink"
+            }
+          },
+          "role": {
+            "type": "string",
+            "example": "SUPERUSER",
+            "enum": [
+              "SUPERUSER",
+              "ADMINISTRATION",
+              "USER"
+            ]
+          }
+        }
+      },
+      "SocialMediaLink": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "telegram"
+          },
+          "link": {
+            "type": "string",
+            "example": "t.me/ferimasv"
+          }
+        }
+      }
+    }
+  }
+}
