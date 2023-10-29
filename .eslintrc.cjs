@@ -87,6 +87,7 @@ module.exports = {
     'react/state-in-constructor': ['error', 'never'],
     'react/no-array-index-key': 'off',
     'react/prop-types': 'off',
+    'import/no-extraneous-dependencies': 'off',
     'react/no-danger': 'error',
     'react/static-property-placement': 'off',
     'react/destructuring-assignment': ['error', 'always', { ignoreClassFields: true }],

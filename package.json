@@ -9,12 +9,15 @@
     "prettier": "npx prettier --write ."
   },
   "dependencies": {
+    "@material/web": "^1.0.1",
     "@reduxjs/toolkit": "^1.9.7",
     "bootstrap": "^5.3.2",
     "classnames": "^2.3.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
     "react-dom": "^18.2.0",
+    "react-material-components-web": "^0.1.18",
+    "react-mdc": "^0.7.0",
     "react-router-dom": "^6.16.0",
     "redux": "^4.2.1",
     "typesafe-actions": "^5.1.0"

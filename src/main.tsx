@@ -3,6 +3,8 @@ import { StrictMode } from 'react';
 
 import { App } from './App';
 
+import 'material-components-web/material-components-web.scss';
+
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <App />

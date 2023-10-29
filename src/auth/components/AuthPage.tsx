@@ -1,3 +1,9 @@
+import { Button } from '@react-mdc';
+
 export const AuthPage = () => {
-  return <div></div>;
+  return (
+    <Button raised primary>
+      Hello
+    </Button>
+  );
 };
